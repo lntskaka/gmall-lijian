@@ -3,15 +3,73 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    <!--将spring boot的父依赖（默认的spring boot各个版本信息放到此parent中）-->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.5.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
     <groupId>org.lijian.gmall</groupId>
     <artifactId>gmall-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>../gmall-bean</module>
-        <module>gmall-interface</module>
-    </modules>
     <packaging>pom</packaging>
+    <modules>
+        <module>../gmall-model</module>
+        <module>../gmall-interface</module>
+        <module>../gmall-util-common</module>
+        <module>../gmall-util-service</module>
+        <module>../gmall-util-web</module>
+        <module>../gmall-user-manage</module>
+    </modules>
 
+    <properties>
+        <java.version>1.8</java.version>
+        <mybatis.version>2.1.1</mybatis.version>
+        <dubbo.version>2.7.5</dubbo.version>
+        <zookeeper.version>3.4.12</zookeeper.version>
+        <curator.version>2.12.0</curator.version>
+    </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <!--service使用到的mybatis，版本号在parent中统一管理-->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+
+            <!--dubbo依赖-->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+            <!-- Zookeeper -->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zookeeper.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-framework -->
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-recipes -->
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
