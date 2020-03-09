@@ -23,4 +23,24 @@ public class UserServcieImpl implements UserService {
     public List<User> getAllUsers() {
         return userMapper.selectAllUsers();
     }
+
+    @Override
+    public User getUserById(Long id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int addUser(User user) {
+        return userMapper.insertSelective(user);
+    }
+
+    @Override
+    public int updateUser(User user) {
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public int deleteUser(Long id) {
+        return userMapper.deleteByPrimaryKey(id);
+    }
 }
